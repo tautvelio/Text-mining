@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(shiny)\nlibrary(plotly)\n\nshinyUI(\n  fluidPage(\n    titlePanel(\"Knygų analizė\"),\n        sidebarLayout(\n          sidebarPanel(\n            selectInput(\n              \"book\",\n              \"Pasirinkite knygą:\",\n              choices = books\n            ),\n            hr(),\n            sliderInput(\n              \"quantity\",\n              \"Kiekis dažniausių žodžių:\",\n              min = 1,\n              max = 150,\n              value = 6\n            )\n          ),\n          mainPanel(\n            tabsetPanel(\n              tabPanel(\"Žodžių debesis\",\n                plotOutput(\"wordcloud\")\n            ),\n              tabPanel(\"Žodžio vartojimas per skyriu\",\n                plotlyOutput(\"usage\")\n              ),\n              tabPanel(\"Žodžių statistiniai duomenys\",\n                tableOutput(\"statistics\")\n              )\n            )\n          )\n        )\n      )\n)\n",
+    "created" : 1524471368498.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "239611415",
+    "id" : "3F2D34C1",
+    "lastKnownWriteTime" : 1525303508,
+    "last_content_update" : 1525303508305,
+    "path" : "C:/Users/Tautvydas/Desktop/Bakalaurinis/Text-mining/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

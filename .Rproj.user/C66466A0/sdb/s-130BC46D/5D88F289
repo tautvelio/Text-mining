@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(shiny)\nlibrary(ggplot2)\nlibrary(plotly)\n\nshinyServer(\n  function(input, output) {\n    \n    ###\n    # \"Žodžių debesis\" diagrama\n    ###\n\n    bookTerms <- reactive({\n      getTermMatrixPerBook(input$book, input$quantity)\n    })\n\n    wordcloud_rep <- repeatable(wordcloud)\n\n    output$wordcloud <- renderPlot({\n      v <- bookTerms()\n      wordcloud_rep(\n        names(v),\n        v,\n        scale=c(4, 0.5),\n        min.freq = 1,\n        max.words=input$quantity,\n        colors=brewer.pal(8,\"Dark2\")\n      )\n    })\n\n    ###\n    # \"Žodžio vartojimas per skyriu\" diagrama\n    ###\n\n    perChapterDataFrame <- reactive({\n      getPerChapterDataFrame(input$book, input$quantity)\n    })\n\n    output$usage <- renderPlotly({\n      df <- perChapterDataFrame()\n      ggplot(\n        df,\n        aes(\n          x=chapter,\n          y=count,\n          fill=word)\n        ) +\n        geom_bar(stat=\"identity\")  +\n        #facet_wrap kad būtų tarpai tarp lentelių\n        facet_wrap(~ word) +\n        theme(\n          legend.position=\"none\"\n        )\n    })\n\n    \n    ###\n    # \"Žodžių statistiniai duomenys\" diagrama\n    ###\n    \n    allWords <- reactive({\n      getTermMatrixPerBook(input$book, input$quantity)\n    })\n    output$statistics <- renderTable(\n      allWords(), rownames = TRUE, colnames = FALSE, bordered = TRUE, hover = TRUE, digits = 0\n    )\n  }\n)\n",
+    "created" : 1524471367577.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "961294629",
+    "id" : "5D88F289",
+    "lastKnownWriteTime" : 1525303477,
+    "last_content_update" : 1525303477202,
+    "path" : "C:/Users/Tautvydas/Desktop/Bakalaurinis/Text-mining/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
